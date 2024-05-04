@@ -6,9 +6,9 @@
   "main": "index.js",
   "dependencies": {
     "battery-level": "^3.0.0",
-    "is-charging": "^2.0.0"
+    "is-charging": "^2.0.0",
+    "node-notifier": "^10.0.1"
   },
-  "devDependencies": {},
   "publishConfig": {
     "access": "public"
   },
@@ -20,12 +20,11 @@
     "url": "git+https://github.com/s54a/plugUnplugReminderNodePackage.git"
   },
   "keywords": [
-    "Play Sound",
-    "Stop Sound",
-    "Play & Stop Sound",
-    "Play & Stop Sound With VLC Media Player in Node JS",
-    "Play & Stop Sound By VLC Media Player in Node JS",
-    "Play & Stop Sound Using VLC Media Player in Node JS"
+    "PlugUnplugReminder",
+    "Plug Unplug Reminder",
+    "Battery Notification",
+    "CLI App",
+    "CLI Application"
   ],
   "author": "Sooraj Gupta",
   "license": "MIT",
