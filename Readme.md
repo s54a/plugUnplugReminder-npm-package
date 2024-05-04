@@ -1,13 +1,121 @@
 # plugUnplugReminder Node Package
 
-## LICENSE
+## Installation
 
-#### MIT
+This package provides an Executable Command
 
-## Battery PNG By
+So You will have to install this package globally to be able to use this Package.
 
-<a href="https://www.flaticon.com/free-icons/full-battery" title="full battery icons">Full battery icons created by juicy_fish - Flaticon</a>
+```bash
+npm install g plugunplugreminder
+```
 
-Made By Sooraj Gupta
-[Email](soorajgupta00@gmail.com)
-[Github](https://github.com/s54a)
+**or**
+
+To Execute Immediately
+
+```sh
+npx plugunplugreminder
+```
+
+### How to Use
+
+Install this Globally then run this command and let it run in the Background and it will let you know to **Plug** or **Unplug** your Device
+
+```sh
+pur
+```
+
+### Features
+
+- Monitors battery level and charging status in every Minute.
+- Sends notifications when the battery level is below 20% and not charging, or above 80% while charging.
+- Provides visual feedback in the console with clear and colorful messages.
+
+### Source Code
+
+```js
+#!/usr/bin/env node
+
+import path from "path";
+import { fileURLToPath } from "url";
+import notifier from "node-notifier";
+import batteryLevel from "battery-level";
+import isCharging from "is-charging";
+import chalk from "chalk";
+import boxen from "boxen";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+async function checkBatteryLevel() {
+  const level = await batteryLevel(); // Get battery level
+  const charging = await isCharging(); // Check if device is charging
+
+  const plugIn = path.resolve(__dirname, "./plugIn.png");
+  const unplug = path.resolve(__dirname, "./unplug.png");
+
+  console.clear();
+  console.log(chalk.yellow.bold(boxen("Plug Unplug Reminder", { padding: 1 })));
+  console.log(chalk.gray("\nListening to battery level..."));
+  console.log(
+    chalk.green.bold(`\nCurrent Battery Percentage: ${level * 100}%`)
+  );
+  console.log(
+    chalk.cyan(
+      "\nIt will notify you when the battery percentage is below 20% and not Charging & above 80% while Charging."
+    )
+  );
+
+  if (level < 0.2 && !charging) {
+    notifier.notify({
+      title: "Plug In Reminder",
+      message:
+        "Battery level is below 20%. Please plug in your device to keep the battery in optimum health.",
+      icon: plugIn,
+      sound: true, // Play default system notification sound
+    });
+    console.log(
+      chalk.red.bold("Battery level is low. Reminder sent to plug in device.")
+    );
+  } else if (level > 0.8 && charging) {
+    notifier.notify({
+      title: "Unplug Reminder",
+      message:
+        "Battery level is above 80%. You can unplug your device to keep the battery in optimum health.",
+      icon: unplug,
+      sound: true, // Play default system notification sound
+    });
+    console.log(
+      chalk.green.bold("Battery level is high. Reminder sent to unplug device.")
+    );
+  }
+}
+
+// Check battery level immediately and then every 60 seconds
+checkBatteryLevel(); // Run immediately
+const interval = setInterval(checkBatteryLevel, 60 * 1000); // Run every 60 seconds
+
+// Log what the application is doing
+process.on("SIGINT", () => {
+  clearInterval(interval);
+  console.log(chalk.yellow.bold("\nPlugUnplugReminder Stopped."));
+});
+```
+
+### License
+
+This project is licensed under the MIT License
+
+---
+
+Made by Sooraj Gupta
+
+- Email: soorajgupta00@gmail.com
+- GitHub: [s54a](https://github.com/s54a)
+
+---
+
+### Credits for PNG Icons Used
+
+<a target="_blank" href="https://icons8.com/icon/12025/disconnected">Unplug</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+<a target="_blank" href="https://icons8.com/icon/12088/electrical">Electrical</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
