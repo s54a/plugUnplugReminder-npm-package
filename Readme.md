@@ -26,6 +26,32 @@ Install this Globally then run this command and let it run in the Background and
 pur
 ```
 
+### If you want to it run when your Device Boots follow the following steps
+
+- Create a `pur.sh` file paste this code inside
+
+```
+#!/bin/bash
+
+# Run the plugUnplugReminder command
+pur
+```
+
+- Now paste the `pur.sh` file in the startup folder
+
+For Windows
+
+- Make Sure Git Bash is installed or any other Terminal which can execute Bash Code
+- Make sure when you open the `pur.sh` file it **executes** instead of being opened in a text editor
+- To execute the **sh** file when clicked use the `Open With` option and open with `Bash.exe` then select **always**
+- Now add the **Startup Folder** path in Environment Variables
+
+So now every time you start your windows laptop this will work.
+
+#### Save yourself the hassle above and use [Pure Battery Add On](https://apps.microsoft.com/detail/9n3hdtncf6z8?hl=en-US&gl=US) by Medha Chaitanya
+
+_I don't have a Mac Device so I can't help you_
+
 ### Features
 
 - Monitors battery level and charging status in every Minute.
